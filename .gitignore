@@ -1,2 +1,4 @@
 /.venv/
+/.secret/
+/.db/db.cnf
 .env
