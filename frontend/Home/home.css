@@ -9,9 +9,9 @@ body {
 
 .text-center {
   position: absolute;
-  top: 50%; /* ‚’¼•ûŒü‚Ì’†‰›‚É”z’u */
-  left: 50%; /* …•½•ûŒü‚Ì’†‰›‚É”z’u */
-  transform: translate(-50%, -50%); /* ’†‰›‘µ‚¦ */
+  top: 50%; /* åž‚ç›´æ–¹å‘ã®ä¸­å¤®ã«é…ç½® */
+  left: 50%; /* æ°´å¹³æ–¹å‘ã®ä¸­å¤®ã«é…ç½® */
+  transform: translate(-50%, -50%); /* ä¸­å¤®æƒãˆ */
   font-family: "Inter-Regular", Helvetica;
   font-weight: 400;
   color: #ffffff;
@@ -22,8 +22,8 @@ body {
 
 .btn {
   position: absolute;
-  left: 50%; /* …•½•ûŒü‚Ì’†‰›‚É”z’u */
-  transform: translate(-50%, 0%); /* ’†‰›‘µ‚¦ */
+  left: 50%; /* æ°´å¹³æ–¹å‘ã®ä¸­å¤®ã«é…ç½® */
+  transform: translate(-50%, 0%); /* ä¸­å¤®æƒãˆ */
   font-family: "Inter-Regular", Helvetica;
   font-weight: 400;
   font-size: 90px;
