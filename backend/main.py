@@ -7,6 +7,7 @@ import githubinfo
 from model.model_create import calculate_anmalous_percent
 import os
 import db
+import gpt
 from celery import Celery
 
 base_dir = Path(__file__).parents[1]
@@ -66,7 +67,8 @@ def processing_result(task_id):
     
     if task.state == 'SUCCESS':
         result = task.result
-        return render_template('Home/home_authenticated.html', result=result)
+        text = gpt.evaluation_score(result[2])
+        return render_template('Home/home_authenticated.html', result=result, text=text)
     else:
         return render_template("load/load.html")
 
@@ -74,6 +76,7 @@ def processing_result(task_id):
 def search(user_name):
     data = ""
     return render_template("")
+
 
 if __name__ == "__main__":
     app.run()
