@@ -4,7 +4,8 @@ from github import Github
 from github import Auth
 import datetime 
 
-token =  load_dotenv()
+load_dotenv()
+token = os.environ.get('token')
 
 def get_user():
     # アクセストークンを取得
@@ -46,20 +47,35 @@ def commit_all_datetime(author):
     # result定義
     result = []
     # 一年前の日付の取得
-    today =datetime.datetime.now()
-    today = today.replace(year=today.year-1)
-    today = 'author-date:>'+str(today.year) + '-' + str(today.month) + '-' + str(today.day)
+    today =datetime.datetime.today()
+    lasttoday = today.replace(year=today.year-1)
+    lasttoday = 'author-date:>'+str(lasttoday.year) + '-' + str(lasttoday.month) + '-' + str(lasttoday.day)
     # アクセストークンを取得
     g = Github(token)
     # コミット履歴の取得
-    commit =  g.search_commits(sort ='author-date', order='desc', author=author,query=today)
-    
+    commit =  g.search_commits(sort ='author-date', order='desc', author=author,query=lasttoday)
+
+    nowday = datetime.datetime.now()
+    d = {}
+    # コミット履歴の日付を取得
+    for i in range(360):
+        
+        key = str(nowday.year) + '-' + str(nowday.month) + '-' + str(nowday.day)
+        d.setdefault(key, 0)
+        nowday = nowday - datetime.timedelta(days=1)
+    print(d)
+
 
     for i in commit:
         commitday = str(i.commit.author.date.year) + '-' + str(i.commit.author.date.month) + '-' + str(i.commit.author.date.day)
-        result.append(commitday)
+        if commitday in d.keys():
+            d[commitday] += 1
+    result = list(d.values())
     g.close()
     return result
+
+
+
 def commit_month_datetime(author):
     # result定義
     result = []
@@ -74,6 +90,8 @@ def commit_month_datetime(author):
     total=commit.totalCount
     g.close()
     return total
+
+
 
 def issue_commit(author):
     # result定義
@@ -105,8 +123,11 @@ def issue_commit(author):
     g.close()
     return result
 
+def modify():
+    result = 360 * []
+    return result
 
 
 
 if __name__ == '__main__':
-    print(get_user())
+    print(commit_all_datetime('vyuma'))

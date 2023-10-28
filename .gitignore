@@ -2,3 +2,4 @@
 /.secret/
 /.db/db.cnf
 .env
+.env
