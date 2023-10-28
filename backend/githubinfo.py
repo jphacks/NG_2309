@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from github import Github
 from github import Auth
 import datetime 
+import collections
 
 load_dotenv()
 
@@ -73,6 +74,8 @@ def commit_year_total(author):
     # コミット履歴の取得
     commit =  g.search_commits(sort ='author-date', order='desc', author=author,query=today)
     total=commit.totalCount
+    for i in commit:
+        print(i.commit.author.date)
     g.close()
     return total
 
@@ -123,6 +126,11 @@ def issue_commit(author):
     return result
 
 
+def modify(main):
+    result = 360*[0]
+    
+    
+
 
 
 
@@ -131,5 +139,5 @@ if __name__ == '__main__':
     # print(commit_history('koukikouki/commit_history'))
     # print(commit_all_datetime('koukikouki'))
     # print(commit_month_datetime('koukikouki'))
-    print(commit_year_total('vyuma'))
-    print(commit_month_total('vyuma'))
+    print(commit_year_total('kotama7'))
+    print(commit_month_total(''))
