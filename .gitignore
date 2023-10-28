@@ -2,3 +2,5 @@
 /.secret/
 /.db/db.cnf
 .env
+/backend/__pycache__/
+/backend/model/__pycache__/
