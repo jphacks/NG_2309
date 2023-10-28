@@ -4,9 +4,7 @@ from github import Github
 from github import Auth
 import datetime 
 
-token =  load_dotenv()
-
-def get_user():
+def get_user(token):
     # アクセストークンを取得
     # ユーザー名取得
     auth = Auth.Token(token)
@@ -15,7 +13,7 @@ def get_user():
     g.close()
     return user.name
 
-def commit_history(reponame):
+def commit_history(token, reponame):
     # アクセストークンを取得
     # ユーザー名取得 
 
@@ -60,7 +58,9 @@ def commit_all_datetime(author):
         result.append(commitday)
     g.close()
     return result
-def commit_month_datetime(author):
+
+
+def commit_month_datetime(token, author):
     # result定義
     result = []
     # 一年前の日付の取得
