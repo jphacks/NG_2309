@@ -4,7 +4,9 @@ from github import Github
 from github import Auth
 import datetime 
 
-token =  load_dotenv()
+load_dotenv()
+
+token = os.getenv("token")
 
 def get_user():
     # アクセストークンを取得
@@ -60,18 +62,33 @@ def commit_all_datetime(author):
         result.append(commitday)
     g.close()
     return result
-def commit_month_datetime(author):
-    # result定義
-    result = []
+
+def commit_year_total(author):
     # 一年前の日付の取得
     today =datetime.datetime.now()
-    today = today.replace(year=today.month-1)
+    today = today.replace(year=today.year-1)
     today = 'author-date:>'+str(today.year) + '-' + str(today.month) + '-' + str(today.day)
     # アクセストークンを取得
     g = Github(token)
     # コミット履歴の取得
     commit =  g.search_commits(sort ='author-date', order='desc', author=author,query=today)
     total=commit.totalCount
+    g.close()
+    return total
+
+
+def commit_month_total(author):
+    # 一か月まえの日付の取得
+    today =datetime.datetime.now()
+    today = today.replace(month=today.month-1)
+    today = 'author-date:>'+str(today.year) + '-' + str(today.month) + '-' + str(today.day)
+    # アクセストークンを取得
+    g = Github(token)
+    # コミット履歴の取得
+    commit =  g.search_commits(sort ='author-date', order='desc', author=author,query=today)
+    total=commit.totalCount
+    for i in commit:
+        print(i.commit.author.date)
     g.close()
     return total
 
@@ -90,15 +107,15 @@ def issue_commit(author):
     # issueのステータスで場合分け
     if issue.state == 'open':
         for i in issue:
-            issueday = str(i.created_at.year) + '-' + str(i.created_at.month) + '-' + str(i.created_at.day)
-            updateday = str(i.updated_at.year) + '-' + str(i.updated_at.month) + '-' + str(i.updated_at.day)
+            issueday  = str(i.created_at.month) + '-' + str(i.created_at.day)
+            updateday = str(i.updated_at.month) + '-' + str(i.updated_at.day)
             result.append(issueday)
             result.append(updateday)
     elif issue.state == 'closed':
         for i in issue:
-            issuecreatday = str(i.closed_at.year) + '-' + str(i.closed_at.month) + '-' + str(i.closed_at.day)
-            issuecloseday = str(i.created_at.year) + '-' + str(i.created_at.month) + '-' + str(i.created_at.day)
-            updateday = str(i.updated_at.year) + '-' + str(i.updated_at.month) + '-' + str(i.updated_at.day)
+            issuecreatday =  str(i.closed_at.month) + '-' + str(i.closed_at.day)
+            issuecloseday =   str(i.created_at.month) + '-' + str(i.created_at.day)
+            updateday =  str(i.updated_at.month) + '-' + str(i.updated_at.day)
             result.append(issuecreatday)
             result.append(issuecloseday)
             result.append(updateday)
@@ -108,5 +125,11 @@ def issue_commit(author):
 
 
 
+
 if __name__ == '__main__':
-    print(get_user())
+    # print(get_user())
+    # print(commit_history('koukikouki/commit_history'))
+    # print(commit_all_datetime('koukikouki'))
+    # print(commit_month_datetime('koukikouki'))
+    print(commit_year_total('vyuma'))
+    print(commit_month_total('vyuma'))
