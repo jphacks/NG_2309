@@ -128,7 +128,12 @@ def issue_commit(author):
 
 def modify(main):
     result = 360*[0]
-    
+    count = collections.Counter(main)
+    for i in range(360):
+        
+        count.keys()
+
+
     
 
 
