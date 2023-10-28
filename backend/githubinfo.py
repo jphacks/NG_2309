@@ -91,13 +91,17 @@ def issue_commit(author):
     if issue.state == 'open':
         for i in issue:
             issueday = str(i.created_at.year) + '-' + str(i.created_at.month) + '-' + str(i.created_at.day)
+            updateday = str(i.updated_at.year) + '-' + str(i.updated_at.month) + '-' + str(i.updated_at.day)
             result.append(issueday)
+            result.append(updateday)
     elif issue.state == 'closed':
         for i in issue:
             issuecreatday = str(i.closed_at.year) + '-' + str(i.closed_at.month) + '-' + str(i.closed_at.day)
             issuecloseday = str(i.created_at.year) + '-' + str(i.created_at.month) + '-' + str(i.created_at.day)
+            updateday = str(i.updated_at.year) + '-' + str(i.updated_at.month) + '-' + str(i.updated_at.day)
             result.append(issuecreatday)
             result.append(issuecloseday)
+            result.append(updateday)
     g.close()
     return result
 
