@@ -1,1 +1,3 @@
 /.venv/
+/.secret/
+/.db/db.cnf
