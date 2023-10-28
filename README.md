@@ -29,11 +29,10 @@ githubのアカウントの情報を用いてgithubのcommitの間隔をAIに学
 * 
 
 #### フレームワーク・ライブラリ・モジュール
-* python(flask)
-* html,css
 * tensorflow
 * numpy
 * scipy
+* flask
 
 #### デバイス
 * Mac
