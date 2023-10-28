@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP');
+
+body {
+    background-image: url("AdobeStock_145518338.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    font-family: 'Noto Serif JP', sans-serif;
+}
+/* user_nameを左上に配置 */
+#user_name {
+  display: flex;
+  position: absolute;
+  top: 10px;
+  left: 0%;
+  font-size: 20px;
+  color: aliceblue;
+  background: #1c1c1c;
+  justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	text-decoration: none;
+	height: 4rem;
+	width: 120px;
+	margin: 10px;
+	padding: 0 4rem;
+	border-radius: 100vw;
+	background: #6a6e78;
+	background-size: 400%;
+	color: aliceblue;
+}
+/* logoutを右上に配置 */
+#logout {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    margin: 10px;
+    font-size: 20px;
+    color: aliceblue;
+    background: #1c1c1c;
+}
+a.btn_25 {
+	display: flex;
+    top: 10px;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	overflow: hidden;
+	text-decoration: none;
+	height: 4rem;
+	width: 120px;
+	margin: auto;
+	padding: 0 4rem;
+	border-radius: 100vw;
+	background: #6a6e78;
+	background-size: 400%;
+	color: aliceblue;
+}
+a.btn_25:hover::before {
+  transform: scaleX(1);
+}
+a.btn_25:hover {
+	color: aliceblue;
+}
+a.btn_25 span {
+  position: relative;
+  z-index: 1;
+}
+a.btn_25::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  width: 100%;
+  height: inherit;
+  border-radius: inherit;
+  background: linear-gradient(
+    82.3deg,
+    rgba(39, 172, 217, 1) 10.8%,
+    rgba(18, 83, 229, 1) 94.3%
+  );
+  transition: all 0.475s;
+}
+
+#comment {
+    position: absolute;
+    top: 120px;
+    left: 600px;
+    font-size: 20px;
+    color: aliceblue;
+    background: #6a6e78;
+    width: 600px;
+    height: 300px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#progress-spinner {
+  border-radius: 50%;
+  height: 170px;
+  width: 170px;
+}
+
+#middle-circle {
+  position: absolute;
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  background-color: #6a6e78;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: large;
+  font-weight: bold;
+}
+
+#graph{
+  position: absolute;
+  top: 500px;
+  left: 200px;
+  background-color: aliceblue;
+  background-size: cover;
+  width: auto;
+  height: auto;
+}
