@@ -60,6 +60,20 @@ def commit_all_datetime(author):
         result.append(commitday)
     g.close()
     return result
+def commit_month_datetime(author):
+    # result定義
+    result = []
+    # 一年前の日付の取得
+    today =datetime.datetime.now()
+    today = today.replace(year=today.month-1)
+    today = 'author-date:>'+str(today.year) + '-' + str(today.month) + '-' + str(today.day)
+    # アクセストークンを取得
+    g = Github(token)
+    # コミット履歴の取得
+    commit =  g.search_commits(sort ='author-date', order='desc', author=author,query=today)
+    total=commit.totalCount
+    g.close()
+    return total
 
 def issue_commit(author):
     # result定義
