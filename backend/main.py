@@ -46,8 +46,15 @@ def get_token():
 def background_process(self, access_token):
     user_name = githubinfo.get_user(access_token)
     month_commit = githubinfo.commit_month_datetime(access_token, user_name)
-    data = ""
-    X,Y = "",""
+    all_comitt_data = githubinfo.commit_all_datetime()
+    data = githubinfo.modify(all_comitt_data)
+    X,Y = [],[]
+    month = 12
+    day = 30
+    x_window = 20
+    for i in range(month):
+        X.extend(data[i*day:i*day+x_window])
+        Y.extend(data[i*day+x_window:(i+1)*day])
     percent = calculate_anmalous_percent(X, Y, data)
     db.insert_data(user_name, month_commit, percent)
     return (user_name, month_commit, percent)

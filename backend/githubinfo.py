@@ -40,7 +40,7 @@ def commit_history(token, reponame):
 
 
 
-def commit_all_datetime(author):
+def commit_all_datetime(token, author):
     # result定義
     result = []
     # 一年前の日付の取得
