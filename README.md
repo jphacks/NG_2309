@@ -1,4 +1,4 @@
-# CalmEngineer
+![image](https://github.com/jphacks/NG_2309/assets/104612339/7fd2ef3c-8048-4fc5-b889-5ff5addcac68)# CalmEngineer
 
 [![IMAGE ALT TEXT HERE](https://jphacks.com/wp-content/uploads/2023/07/JPHACKS2023_ogp.png)](https://www.youtube.com/watch?v=yYRQEdfGjEg)
 
@@ -33,6 +33,8 @@ githubのアカウントの情報を用いてgithubのcommitの間隔をAIに学
 * numpy
 * scipy
 * flask
+* mariadb
+* openai
 
 #### デバイス
 * Mac
@@ -40,9 +42,11 @@ githubのアカウントの情報を用いてgithubのcommitの間隔をAIに学
 
 ### 独自技術
 #### ハッカソンで開発した独自機能・技術
-* 独自で開発したものの内容をこちらに記載してください
-* 特に力を入れた部分をファイルリンク、またはcommit_idを記載してください。
+* 周期性のある自然現象の異常検知などに使われるdLSTMを、コミット履歴という規則性はあるが予測の難しいものの異常検知に使用した。
+* 先行研究では十分な精度を確保するためにLSTMを含めて9層のノードがあったが、ログイン処理にあまり時間を掛けないために、総数を可能な限り少なくした。
+### 最も力を入れたファイル
+* /backend/main.py
 
 #### 製品に取り入れた研究内容（データ・ソフトウェアなど）（※アカデミック部門の場合のみ提出必須）
-* 
-* 
+* https://link.springer.com/article/10.1007/s41060-019-00186-0
+* https://www.jstage.jst.go.jp/article/bjsiam/30/1/30_22/_pdf/-char/ja
