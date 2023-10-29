@@ -28,7 +28,7 @@ celery.conf.update(app.config)
 @app.route('/')
 def index():
     if request.method == "GET":
-        return render_template("Home/home_authenticated.html")
+        return render_template("Home/home_un.html")
     
     elif request.method == "POST":
         return redirect(f'https://github.com/login/oauth/authorize?client_id={os.environ.get("client_id")}&scope=repo&redirect_uri=http://localhost:5000/home')
@@ -75,7 +75,7 @@ def processing_result(task_id):
     if task.state == 'SUCCESS':
         result = task.result
         text = gpt.evaluation_score(result[2])
-        return render_template('Home/home_authenticated.html', result=result, text=text)
+        return render_template('main/main.html', result=result, text=text)
     else:
         return render_template("load/load.html")
 
