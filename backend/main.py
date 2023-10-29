@@ -8,7 +8,7 @@ import os
 import db
 import gpt
 
-base_dir = Path(__file__).parents[1]
+base_dir = "../"
 
 load_dotenv(f"{base_dir}/.secret/gitapi.env")
 

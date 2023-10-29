@@ -6,7 +6,7 @@
     <title>main</title> <!-- タイトルを追加 -->
 
     <!-- CSSファイルを<head>セクション内で読み込み -->
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"/>
     <!-- 外部JavaScriptファイルを読み込む -->
     <script src="main.js"></script>
 </head>
