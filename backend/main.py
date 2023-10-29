@@ -81,7 +81,7 @@ def processing_result(task_id):
 
 @app.route("/search/<user_name>")
 def search(user_name):
-    data = ""
+    data = db.get_data(user_name)
     return render_template("")
 
 
