@@ -63,7 +63,7 @@ def login():
 def search(user_name):
     data = db.get_data(user_name)
     print(data)
-    return render_template("search/search.html", user_name=data[0][0], month_commit=str(data[0][1]), percent=str(data[0][2])[:4])
+    return render_template("search/search.html", user_name=data[-1][0], month_commit=str(data[-1][1]), percent=str(data[-1][2])[:4])
 
 if __name__ == "__main__":
     app.run()
