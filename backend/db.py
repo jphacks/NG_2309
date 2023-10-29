@@ -9,8 +9,6 @@ load_dotenv(f"{base_dir}/.secret/db.env")
 
 def insert_data(user_name, commit_num, percent):
 
-    print(os.environ.get("MARIADB_PASSWORD"))
-
     conn = mariadb.connect(
             user= os.environ.get("MARIADB_USER"),
             password=os.environ.get("MARIADB_PASSWORD"),

@@ -8,7 +8,6 @@ import os
 import db
 import gpt
 
-data = {}
 base_dir = Path(__file__).parents[1]
 
 load_dotenv(f"{base_dir}/.secret/gitapi.env")
@@ -58,16 +57,13 @@ def login():
     print("processing...")
     db.insert_data(user_name, month_commit, percent)
     text = gpt.evaluation_score(percent)
-    data["user_name"] = user_name
-    data["month_commit"] = month_commit
-    data["percent"] = percent
-    return render_template('main/main.html', percent=percent, text=text)
+    return render_template('main/main.html',user_name=user_name, percent=str(percent), text=text)
 
 @app.route("/search/<user_name>")
 def search(user_name):
     data = db.get_data(user_name)
     print(data)
-    return render_template("search/search.html", user_name=data["user_name"], month_commit=data["month_commit"], percent=data["percent"])
+    return render_template("search/search.html", user_name=data[0], month_commit=str(data[1]), percent=str(data[2]))
 
 if __name__ == "__main__":
     app.run()

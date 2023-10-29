@@ -15,15 +15,12 @@
     <div id="main">
         <!-- ユーザー名の表示-->
         <div id="user_name">
-            <p>hogehogeさん</p>
-        </div>
-        <!--ホームへ戻るボタン-->
-        <div id="logout">
-            <a href="" class="btn_25"><span>LOGOUT</span></a>
+            <p>{{user_name}}さん</p>
         </div>
         <!-- コメントが表示される -->
         <div id="comment">
             <p>コメント</p>
+            {{text}}
         </div>
         <!-- 異常度を表示する-->
         <div
@@ -38,9 +35,9 @@
                 "
         >
             <div id="middle-circle"></div>
-            <div id="progress-spinner"></div>
+            <div id="progress-spinner">{{percent}}</div>
         </div>
-            <script>
+            <!-- <script>
                 var score = 60;
                 var progress = score;
                 function setProgress() {
@@ -56,7 +53,7 @@
                 window.onload = function () {
                     setProgress();
                 };
-            </script>
+            </script> -->
         <!--グラフを表示する-->
         <div id="graph">
             <img src="graph.png" alt="graph">
