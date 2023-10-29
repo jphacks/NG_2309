@@ -11,11 +11,11 @@ class AnomalousDetector(tf.keras.Model):
         self.output_node = 10
         self.hidden_1 = 20
         self.hidden_2 = 15
-        self.dense_1 = Dense(self.hidden_1, activation="relu")
-        self.dense_2 = Dense(self.hidden_2, activation="relu")
-        self.lstm_1 = LSTM(self.output_node, return_sequences=True)
-        self.lstm_2 = LSTM(self.output_node, return_sequences=True)
-        self.lstm_3 = LSTM(self.output_node, return_sequences=True)
+        self.dense_1 = Dense(self.hidden_1, activation="relu", kernel_initializer=tf.keras.initializers.RandomNormal())
+        self.dense_2 = Dense(self.hidden_2, activation="relu", kernel_initializer=tf.keras.initializers.RandomNormal())
+        self.lstm_1 = LSTM(self.output_node, return_sequences=True, kernel_initializer=tf.keras.initializers.RandomNormal())
+        self.lstm_2 = LSTM(self.output_node, return_sequences=True, kernel_initializer=tf.keras.initializers.RandomNormal())
+        self.lstm_3 = LSTM(self.output_node, return_sequences=True, kernel_initializer=tf.keras.initializers.RandomNormal())
 
 
     def call(self,x):
@@ -124,13 +124,15 @@ def anomalous_percent(model:AnomalousDetector, data):
     return percentage
 
 def calculate_anmalous_percent(X, Y, data):
-    model_instance = model_create(X,Y)
-    return anomalous_percent(model_instance, data)
+    X_array = np.array(X, dtype=np.float64)
+    Y_array = np.array(Y, dtype=np.float64)
+    model_instance = model_create(X_array,Y_array)
+    return anomalous_percent(model_instance, np.array(data))
 
 
 if __name__ == "__main__":
     data = np.random.uniform(0,1,360)
-    X = np.random.uniform(0,100,size=(12,20))
-    Y = np.random.uniform(0,1,size=(12,10))
+    X = np.zeros((12,20))
+    Y = np.zeros((12,10))
     model_instance = model_create(X,Y)
     print(anomalous_percent(model_instance, data))

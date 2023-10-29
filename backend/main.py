@@ -41,27 +41,29 @@ def login():
     user_name = githubinfo.get_user(access_token)
     month_commit = githubinfo.commit_month_datetime(access_token, user_name)
     print("processing...")
-    all_comitt_data = githubinfo.commit_all_datetime()
+    all_comitt_data = githubinfo.commit_all_datetime(access_token, user_name)
     print("processing...")
+    print(all_comitt_data)
     data = githubinfo.modify(all_comitt_data)
     X,Y = [],[]
     month = 12
     day = 30
     x_window = 20
     for i in range(month):
-        X.extend(data[i*day:i*day+x_window])
-        Y.extend(data[i*day+x_window:(i+1)*day])
+        X.append(data[i*day:i*day+x_window])
+        Y.append(data[i*day+x_window:(i+1)*day])
+    print(X,Y)
     percent = calculate_anmalous_percent(X, Y, data)
     print("processing...")
     db.insert_data(user_name, month_commit, percent)
     text = gpt.evaluation_score(percent)
-    return render_template('Home/home_authenticated.html', percent=percent, text=text)
+    return render_template('Home/main.html', percent=percent, text=text)
 
 @app.route("/search/<user_name>")
 def search(user_name):
     data = db.get_data(user_name)
     print(data)
-    return render_template("search")
+    return render_template("search/search.html")
 
 if __name__ == "__main__":
     app.run()
