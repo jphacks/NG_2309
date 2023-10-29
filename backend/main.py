@@ -55,12 +55,13 @@ def login():
     print("processing...")
     db.insert_data(user_name, month_commit, percent)
     text = gpt.evaluation_score(percent)
-    return render_template('Home/home_authenticated.html', text=text)
+    return render_template('Home/home_authenticated.html', percent=percent, text=text)
 
 @app.route("/search/<user_name>")
 def search(user_name):
     data = db.get_data(user_name)
-    return render_template("")
+    print(data)
+    return render_template("search")
 
 if __name__ == "__main__":
     app.run()
