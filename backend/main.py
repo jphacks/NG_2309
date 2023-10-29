@@ -10,14 +10,14 @@ import db
 import gpt
 from celery import Celery
 
-base_dir = Path(__file__).parents[1]
+base_dir = "../"
 
 load_dotenv(f"{base_dir}/.secret/gitapi.env")
-
 
 app = Flask(__name__,
             static_folder=f"{str(base_dir)}/frontend/",
             template_folder=f"{str(base_dir)}/frontend/")
+
 
 app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
 app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
