@@ -4,3 +4,4 @@
 .env
 /backend/__pycache__/
 /backend/model/__pycache__/
+gitapi.env

@@ -36,10 +36,10 @@ def commit_history(token, reponame):
     return lists
 
 
-# グローバル変数
-
-
-
+# commitdataをtokenとauthorの名前で取得
+# authorはgithubのユーザー名
+# tokenはgithubのアクセストークン
+# resultはcommitの日付のリスト
 def commit_all_datetime(token, author):
     # result定義
     result = []
@@ -55,23 +55,21 @@ def commit_all_datetime(token, author):
     for i in commit:
         commitday = str(i.commit.author.date.year) + '-' + str(i.commit.author.date.month) + '-' + str(i.commit.author.date.day)
         result.append(commitday)
-
-    # nowday = datetime.datetime.now()
-    # d = {}
-    # # コミット履歴の日付を取得
-    # for i in range(360):
-        
-    #     key = str(nowday.year) + '-' + str(nowday.month) + '-' + str(nowday.day)
-    #     d.setdefault(key, 0)
-    #     nowday = nowday - datetime.timedelta(days=1)
-
-    # for i in commit:
-    #     commitday = str(i.commit.author.date.year) + '-' + str(i.commit.author.date.month) + '-' + str(i.commit.author.date.day)
-    #     if commitday in d.keys():
-    #         d[commitday] += 1
-    # result = list(d.values())
     g.close()
     return result
+
+def commit_private_datetime(token, author):
+    # プライベートリポジトリのコミットの取得
+    # result定義
+    result = []
+    # 一年前の日付の取得
+    today =datetime.datetime.now()
+    today = today.replace(year=today.year-1)
+    today = 'author-date:>'+str(today.year) + '-' + str(today.month) + '-' + str(today.day)
+    # アクセストークンを取得
+    g = Github(token)
+    # コミット履歴の取得
+    commit =  g.search_commits(sort ='author-date', order='desc', author=author,query=today)
 
 
 def commit_month_datetime(token, author):
@@ -137,8 +135,11 @@ def modify(result):
 
 
 
+
 if __name__ == '__main__':
-    commitdate = commit_all_datetime('vyuma')
-    result = modify(commitdate)
+    load_dotenv()
+    token = os.environ.get("token")
+    author = "vyuma"
+    result=modify(commit_all_datetime(token, author))
     print(result)
     print(sum(result))
