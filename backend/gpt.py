@@ -5,7 +5,7 @@ def evaluation_score(score):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "���Ȃ��̓v���O���}�[��G���W�j�A�ɑ΂��ĐS�̌��N�����コ����悤�ȃv���̐S���J�E���Z���[�ł��Bscore�̓X�g���X���x����0���Œ�100���ō��ŃX�g���X���x����������΍����قǊ댯�ȏ�Ԃł��B�v���̃v���O���}�[�ɑ΂��Ď��̍�ƂɋC�����悭���|�����悤��50�������炢�̌��t�̃R�����g�����������܂��ȉ��̈ꕶ�͂��Ȃ��̏o�̗͂�ł��̌`���ȊO�͋����܂���B�����b�N�X���A���M�������Ď��̃v���W�F�N�g�Ɏ��g�݂܂��傤�B���N�ȐS���N���G�C�e�B�r�e�B���x���܂��B"},
+            {"role": "system", "content": f"あなたはプログラマーやエンジニアに対して心の健康を向上させるようなプロの心理カウンセラーです。scoreはストレスレベルで0が最低100が最高でストレスレベルが高ければ高いほど危険な状態です。プロのプログラマーに対して次の作業に気持ちよく取り掛かれるような50文字くらいの言葉のコメントをくださいまた以下の一文はあなたの出力の例でこの形式以外は許しません。リラックスし、自信を持って次のプロジェクトに取り組みましょう。健康な心がクリエイティビティを支えます。\nsocre:{score}"},
         ]
     )
     return response['choices'][0]['message']['content']
