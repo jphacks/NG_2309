@@ -35,6 +35,22 @@
             <div id="middle-circle">{{percent}}</div>
             <div id="progress-spinner"></div>
         </div>
+        <input type="text" id="user" placeholder="ユーザーを検索">
+        <button id="goButton">検索</button>
+
+        <script>
+            // ボタンがクリックされたときに呼び出される関数
+            function navigateToURL() {
+              // 入力フィールドからURLを取得
+              const url = document.getElementById("user").value;
+        
+              window.location.href = "http://localhost:5000/search/" + url;
+            }
+        
+            // ボタンにクリックイベントを追加
+            const goButton = document.getElementById("goButton");
+            goButton.addEventListener("click", navigateToURL);
+        </script>
             <!-- <script>
                 var score = 60;
                 var progress = score;

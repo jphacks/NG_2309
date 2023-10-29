@@ -32,7 +32,8 @@ def insert_data(user_name, commit_num, percent):
 def get_data(user_name):
 
     connection = mariadb.connect(
-        host='localhost:3306',
+        host="localhost",
+        port=3306,
         user=os.environ.get("MARIADB_USER"),
         password=os.environ.get("MARIADB_PASSWORD"),
         database=os.environ.get("MARIADB_DATABASE")
@@ -40,7 +41,7 @@ def get_data(user_name):
 
     cursor = connection.cursor()
 
-    query = f"SELECT user_name, commit_num, stress_revel from user_list WHERE user_name={user_name}"
+    query = f"SELECT user_name, commit_num, percent from user_list WHERE user_name={user_name}"
     results = cursor.execute(query)
 
 
