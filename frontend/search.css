@@ -6,3 +6,17 @@ body{
     background-position: center center;
     font-family: 'Noto Serif JP', sans-serif;
 }
+
+#search {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    background-color: #6a6e78;
+    border-radius: 30px;
+    color: aliceblue;
+    font-size: 50px;
+    padding: 10px;
+    letter-spacing: 0;
+    line-height: normal;
+  }

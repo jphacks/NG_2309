@@ -134,7 +134,7 @@ a.btn_25::before {
   top: 500px;
   left: 600px;
   font-size: 20px;
-  color: aliceblue;
+  color: rgb(0, 0, 0);
   background: #6a6e78;
   width: 200px;
   height: 50px;
@@ -147,7 +147,7 @@ input{
   top: 500px;
   left: 200px;
   font-size: 20px;
-  color: aliceblue;
+  color: rgb(0, 0, 0);
   width: 200px;
   height: 50px;
   padding: 10px;

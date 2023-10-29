@@ -40,6 +40,8 @@ githubのアカウントの情報を用いてgithubのcommit履歴を取得し�
 * numpy
 * scipy
 * flask
+* pygih
+* pygithub
 * mariadb
 * openai
 
