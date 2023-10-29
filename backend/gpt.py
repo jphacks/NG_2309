@@ -1,5 +1,12 @@
 import openai
+from pathlib import Path
+from dotenv import load_dotenv
+import os
 
+base_dir = Path(__file__).parents[1]
+load_dotenv(f"{base_dir}/.secret/gpt.env")
+
+openai.api_key = os.environ.get("api_key")
 
 def evaluation_score(score):
     response = openai.ChatCompletion.create(
