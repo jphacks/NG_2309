@@ -127,3 +127,29 @@ a.btn_25::before {
   width: auto;
   height: auto;
 }
+
+/*goButtonの配置*/
+#goButton {
+  position: absolute;
+  top: 500px;
+  left: 600px;
+  font-size: 20px;
+  color: aliceblue;
+  background: #6a6e78;
+  width: 200px;
+  height: 50px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+input{
+  position: absolute;
+  top: 500px;
+  left: 200px;
+  font-size: 20px;
+  color: aliceblue;
+  width: 200px;
+  height: 50px;
+  padding: 10px;
+  border-radius: 10px;
+}
