@@ -73,18 +73,9 @@ def commit_all_datetime(token, author):
 
 
 def commit_month_datetime(token, author):
-    # result定義
-    result = []
-    # 一年前の日付の取得
-    today =datetime.datetime.now()
-    today = today.replace(month=today.month-1)
-    today = 'author-date:>'+str(today.year) + '-' + str(today.month) + '-' + str(today.day)
-    # アクセストークンを取得
-    g = Github(token)
-    # コミット履歴の取得
-    commit =  g.search_commits(sort ='author-date', order='desc', author=author,query=today)
-    total=commit.totalCount
-    g.close()
+    result = commit_all_datetime(token, author)
+    mod = modify(result)
+    total = sum(mod[0:30])
     return total
 
 
@@ -132,11 +123,14 @@ def modify(result):
     result = list(d.values())
     return result
 
-
+from dotenv import load_dotenv
+from pathlib import Path
+import os
 
 
 if __name__ == '__main__':
-    commitdate = commit_all_datetime('vyuma')
-    result = modify(commitdate)
+    base_dir = Path(__file__).parents[1]
+    load_dotenv(f"{base_dir}/.secret/gitapi.env")
+    token = os.environ.get("token")
+    result =  commit_month_datetime(token, 'vyuma')
     print(result)
-    print(sum(result))
