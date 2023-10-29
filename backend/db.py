@@ -3,15 +3,18 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
-base_dir = Path(__file__).parents[1]
 
-load_dotenv(f"{base_dir}/.secret/gitapi.env")
+base_dir = Path(__file__).parents[1]
+load_dotenv(f"{base_dir}/.secret/db.env")
 
 def insert_data(user_name, commit_num, percent):
+
+    print(os.environ.get("MARIADB_PASSWORD"))
+
     conn = mariadb.connect(
             user= os.environ.get("MARIADB_USER"),
             password=os.environ.get("MARIADB_PASSWORD"),
-            host="database",
+            host="localhost",
             port=3306,
             database="user_data"
         )
@@ -29,11 +32,12 @@ def insert_data(user_name, commit_num, percent):
 
 
 def get_data(user_name):
+
     connection = mariadb.connect(
-    host='database:3308',
-    user=os.environ.get("MARIADB_USER"),
-    password=os.environ.get("MARIADB_PASSWORD"),
-    database=os.environ.get("MARIADB_DATABASE")
+        host='localhost:3306',
+        user=os.environ.get("MARIADB_USER"),
+        password=os.environ.get("MARIADB_PASSWORD"),
+        database=os.environ.get("MARIADB_DATABASE")
     )
 
     cursor = connection.cursor()

@@ -1,5 +1,4 @@
-from re import T
-from flask import Flask, redirect, render_template, request, url_for
+from flask import *
 from dotenv import load_dotenv
 from pathlib import Path
 import requests
@@ -8,27 +7,21 @@ from model.model_create import calculate_anmalous_percent
 import os
 import db
 import gpt
-from celery import Celery
 
 base_dir = "../"
 
 load_dotenv(f"{base_dir}/.secret/gitapi.env")
 
-app = Flask(__name__,
+
+app = Flask("app",
             static_folder=f"{str(base_dir)}/frontend/",
             template_folder=f"{str(base_dir)}/frontend/")
 
 
-app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
-app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
-celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
-celery.conf.update(app.config)
-
-
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == "GET":
-        return render_template("Home/home_authenticated.html")
+        return render_template("Home/home_un.html")
     
     elif request.method == "POST":
         return redirect(f'https://github.com/login/oauth/authorize?client_id={os.environ.get("client_id")}&scope=repo&redirect_uri=http://localhost:5000/home')
@@ -42,48 +35,35 @@ def get_token():
     return redirect(f"http://localhost:5000/login?access_token={access_token}")
 
 
-@celery.task(bind=True)
-def background_process(self, access_token):
+@app.route("/login")
+def login():
+    access_token = request.args.get("access_token")
     user_name = githubinfo.get_user(access_token)
     month_commit = githubinfo.commit_month_datetime(access_token, user_name)
-    all_comitt_data = githubinfo.commit_all_datetime()
+    print("processing...")
+    all_comitt_data = githubinfo.commit_all_datetime(access_token, user_name)
+    print("processing...")
+    print(all_comitt_data)
     data = githubinfo.modify(all_comitt_data)
     X,Y = [],[]
     month = 12
     day = 30
     x_window = 20
     for i in range(month):
-        X.extend(data[i*day:i*day+x_window])
-        Y.extend(data[i*day+x_window:(i+1)*day])
+        X.append(data[i*day:i*day+x_window])
+        Y.append(data[i*day+x_window:(i+1)*day])
+    print(X,Y)
     percent = calculate_anmalous_percent(X, Y, data)
+    print("processing...")
     db.insert_data(user_name, month_commit, percent)
-    return (user_name, month_commit, percent)
-
-
-
-@app.route("/login")
-def login():
-    access_token = request.args.get("access_token")
-    task = background_process.apply_async(args=(access_token))
-    return redirect(url_for('result', task_id=task.id))
-
-
-@app.route('/result/<task_id>')
-def processing_result(task_id):
-    task = background_process.AsyncResult(task_id)
-    
-    if task.state == 'SUCCESS':
-        result = task.result
-        text = gpt.evaluation_score(result[2])
-        return render_template('Home/home_authenticated.html', result=result, text=text)
-    else:
-        return render_template("load/load.html")
+    text = gpt.evaluation_score(percent)
+    return render_template('Home/main.html', percent=percent, text=text)
 
 @app.route("/search/<user_name>")
 def search(user_name):
     data = db.get_data(user_name)
-    return render_template("")
-
+    print(data)
+    return render_template("search/search.html")
 
 if __name__ == "__main__":
     app.run()

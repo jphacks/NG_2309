@@ -9,7 +9,7 @@ def get_user(token):
     g = Github(auth=auth)
     user = g.get_user()
     g.close()
-    return user.name
+    return user.login
 
 def commit_history(token, reponame):
     # アクセストークンを取得
@@ -77,7 +77,7 @@ def commit_month_datetime(token, author):
     result = []
     # 一年前の日付の取得
     today =datetime.datetime.now()
-    today = today.replace(year=today.month-1)
+    today = today.replace(month=today.month-1)
     today = 'author-date:>'+str(today.year) + '-' + str(today.month) + '-' + str(today.day)
     # アクセストークンを取得
     g = Github(token)
@@ -132,11 +132,14 @@ def modify(result):
     result = list(d.values())
     return result
 
-
+from dotenv import load_dotenv
+from pathlib import Path
+import os
 
 
 if __name__ == '__main__':
-    commitdate = commit_all_datetime('vyuma')
-    result = modify(commitdate)
+    base_dir = Path(__file__).parents[1]
+    load_dotenv(f"{base_dir}/.secret/gitapi.env")
+    token = os.environ.get("token")
+    result =  commit_month_datetime(token, 'vyuma')
     print(result)
-    print(sum(result))
