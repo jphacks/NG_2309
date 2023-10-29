@@ -27,6 +27,7 @@ def get_token():
 @app.route("/login")
 def login():
     access_token = request.args.get("access_token")
+    return 'Helloword'
 
 
 if __name__ == "__main__":

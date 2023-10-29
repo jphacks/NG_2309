@@ -55,24 +55,29 @@ def commit_all_datetime(author):
     # コミット履歴の取得
     commit =  g.search_commits(sort ='author-date', order='desc', author=author,query=lasttoday)
 
-    nowday = datetime.datetime.now()
-    d = {}
-    # コミット履歴の日付を取得
-    for i in range(360):
-        
-        key = str(nowday.year) + '-' + str(nowday.month) + '-' + str(nowday.day)
-        d.setdefault(key, 0)
-        nowday = nowday - datetime.timedelta(days=1)
-    print(d)
-
-
     for i in commit:
         commitday = str(i.commit.author.date.year) + '-' + str(i.commit.author.date.month) + '-' + str(i.commit.author.date.day)
-        if commitday in d.keys():
-            d[commitday] += 1
-    result = list(d.values())
+        result.append(commitday)
+
+    # nowday = datetime.datetime.now()
+    # d = {}
+    # # コミット履歴の日付を取得
+    # for i in range(360):
+        
+    #     key = str(nowday.year) + '-' + str(nowday.month) + '-' + str(nowday.day)
+    #     d.setdefault(key, 0)
+    #     nowday = nowday - datetime.timedelta(days=1)
+
+    # for i in commit:
+    #     commitday = str(i.commit.author.date.year) + '-' + str(i.commit.author.date.month) + '-' + str(i.commit.author.date.day)
+    #     if commitday in d.keys():
+    #         d[commitday] += 1
+    # result = list(d.values())
     g.close()
     return result
+
+
+
 
 
 
@@ -103,7 +108,7 @@ def issue_commit(author):
     # アクセストークンを取得
     g = Github(token)
     # issueの取得
-    issue =  g.search_issues(sort ='author-date', order='desc', author=author,query=today)
+    issue =  g.search_issues(sort ="created", order='desc', author=author,query=today)
 
     # issueのステータスで場合分け
     if issue.state == 'open':
@@ -112,7 +117,7 @@ def issue_commit(author):
             updateday = str(i.updated_at.year) + '-' + str(i.updated_at.month) + '-' + str(i.updated_at.day)
             result.append(issueday)
             result.append(updateday)
-    elif issue.state == 'closed':
+    elif issue.issue.state == 'closed':
         for i in issue:
             issuecreatday = str(i.closed_at.year) + '-' + str(i.closed_at.month) + '-' + str(i.closed_at.day)
             issuecloseday = str(i.created_at.year) + '-' + str(i.created_at.month) + '-' + str(i.created_at.day)
@@ -123,11 +128,24 @@ def issue_commit(author):
     g.close()
     return result
 
-def modify():
-    result = 360 * []
+def modify(result):
+    d = {}
+    nowday = datetime.datetime.now()
+    for i in range(360):
+        key = str(nowday.year) + '-' + str(nowday.month) + '-' + str(nowday.day)
+        d.setdefault(key, 0)
+        nowday = nowday - datetime.timedelta(days=1)
+    for date in result:
+        if date in d.keys():
+            d[date] +=1
+    result = list(d.values())
     return result
 
 
 
+
 if __name__ == '__main__':
-    print(commit_all_datetime('vyuma'))
+    commitdate = commit_all_datetime('vyuma')
+    result = modify(commitdate)
+    print(result)
+    print(sum(result))
