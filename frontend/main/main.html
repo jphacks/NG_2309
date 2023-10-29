@@ -6,24 +6,19 @@
     <title>main</title> <!-- タイトルを追加 -->
 
     <!-- CSSファイルを<head>セクション内で読み込み -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"/>
-    <!-- 外部JavaScriptファイルを読み込む -->
-    <script src="main.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"-->/>
 </head>
 <body>
     <!-- コンテンツ -->
     <div id="main">
         <!-- ユーザー名の表示-->
         <div id="user_name">
-            <p>hogehogeさん</p>
-        </div>
-        <!--ホームへ戻るボタン-->
-        <div id="logout">
-            <a href="" class="btn_25"><span>LOGOUT</span></a>
+            <p>{{user_name}}さん</p>
         </div>
         <!-- コメントが表示される -->
         <div id="comment">
             <p>コメント</p>
+            {{text}}
         </div>
         <!-- 異常度を表示する-->
         <div
@@ -37,10 +32,26 @@
                 color:aliceblue;
                 "
         >
-            <div id="middle-circle"></div>
+            <div id="middle-circle">{{percent}}</div>
             <div id="progress-spinner"></div>
         </div>
-            <script>
+        <input type="text" id="user" placeholder="ユーザーを検索">
+        <button id="goButton">検索</button>
+
+        <script>
+            // ボタンがクリックされたときに呼び出される関数
+            function navigateToURL() {
+              // 入力フィールドからURLを取得
+              const url = document.getElementById("user").value;
+        
+              window.location.href = "http://localhost:5000/search/" + url;
+            }
+        
+            // ボタンにクリックイベントを追加
+            const goButton = document.getElementById("goButton");
+            goButton.addEventListener("click", navigateToURL);
+        </script>
+            <!-- <script>
                 var score = 60;
                 var progress = score;
                 function setProgress() {
@@ -56,10 +67,6 @@
                 window.onload = function () {
                     setProgress();
                 };
-            </script>
-        <!--グラフを表示する-->
-        <div id="graph">
-            <img src="graph.png" alt="graph">
-        </div>
+            </script> -->
     </body>
 </html>

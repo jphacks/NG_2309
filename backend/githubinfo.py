@@ -44,7 +44,7 @@ def commit_all_datetime(token, author):
     # 一年前の日付の取得
     today =datetime.datetime.today()
     lasttoday = today.replace(year=today.year-1)
-    lasttoday = 'author-date:>'+str(lasttoday.year) + '-' + str(lasttoday.month) + '-' + str(lasttoday.day)
+    lasttoday = 'author-date:>'+str(lasttoday.year) + '-' + str(lasttoday.month).zfill(2) + '-' + str(lasttoday.day).zfill(2)
     # アクセストークンを取得
     g = Github(token)
     # コミット履歴の取得
@@ -78,12 +78,13 @@ def commit_month_datetime(token, author):
     # 一年前の日付の取得
     today =datetime.datetime.now()
     today = today.replace(month=today.month-1)
-    today = 'author-date:>'+str(today.year) + '-' + str(today.month) + '-' + str(today.day)
+    today = 'author-date:>'+str(today.year) + '-' + str(today.month).zfill(2) + '-' + str(today.day).zfill(2)
     # アクセストークンを取得
     g = Github(token)
     # コミット履歴の取得
-    result  = modify(commit_all_datetime(token, author))
-    total = sum(result[0:30])
+    commit =  g.search_commits(sort ='author-date', order='desc', author=author,query=today)
+    total=commit.totalCount
+    g.close()
     return total
 
 
@@ -119,17 +120,15 @@ def issue_commit(token, author):
     return result
 
 def modify(result):
-    d = {}
+    d = [0 for _ in range(360)]
     nowday = datetime.datetime.now()
     for i in range(360):
         key = str(nowday.year) + '-' + str(nowday.month) + '-' + str(nowday.day)
-        d.setdefault(key, 0)
         nowday = nowday - datetime.timedelta(days=1)
-    for date in result:
-        if date in d.keys():
-            d[date] +=1
-    result = list(d.values())
-    return result
+        for date in result:
+            if date == key:
+                d[359-i] +=1
+    return d
 
 from dotenv import load_dotenv
 from pathlib import Path
@@ -140,5 +139,5 @@ if __name__ == '__main__':
     os.chdir(Path(__file__).parent)
     load_dotenv()
     token = os.environ.get("token")
-    total = commit_month_datetime(token,'vyuma')
-    print(total)
+    result =  commit_month_datetime(token, 'kotama7')
+    print(result)
