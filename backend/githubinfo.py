@@ -132,11 +132,14 @@ def modify(result):
     result = list(d.values())
     return result
 
-
+from dotenv import load_dotenv
+from pathlib import Path
+import os
 
 
 if __name__ == '__main__':
-    commitdate = commit_all_datetime('vyuma')
-    result = modify(commitdate)
+    base_dir = Path(__file__).parents[1]
+    load_dotenv(f"{base_dir}/.secret/gitapi.env")
+    token = os.environ.get("token")
+    result =  commit_month_datetime(token, 'vyuma')
     print(result)
-    print(sum(result))
