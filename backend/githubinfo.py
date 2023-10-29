@@ -82,9 +82,8 @@ def commit_month_datetime(token, author):
     # アクセストークンを取得
     g = Github(token)
     # コミット履歴の取得
-    commit =  g.search_commits(sort ='author-date', order='desc', author=author,query=today)
-    total=commit.totalCount
-    g.close()
+    result  = commit_all_datetime(token, author)
+    total = sum(result[0:30])
     return total
 
 
@@ -141,5 +140,6 @@ if __name__ == '__main__':
     base_dir = Path(__file__).parents[1]
     load_dotenv(f"{base_dir}/.secret/gitapi.env")
     token = os.environ.get("token")
-    result =  commit_month_datetime(token, 'vyuma')
+    result =  commit_all_datetime(token, get_user(token))
+    result = modify(result)
     print(result)
