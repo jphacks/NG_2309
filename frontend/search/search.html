@@ -11,7 +11,12 @@
         <input type="search" name="search" placeholder="search" />
         <input type="submit" name="submit" value="検索" />
       </form>
-      <div id="search_result"></div>
+      <div id="search-result">
+        <h2>User Information</h2>
+        <p>User Name: {{ user_name }}</p>
+        <p>Month Commit: {{ month_commit }}</p>
+        <p>Percent: {{ percent }}</p>
+      </div>
     </div>
   </body>
 </html>
