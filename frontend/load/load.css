@@ -1,10 +1,12 @@
 /*背景の指定*/
+/*AdobeStock_105925766.jpegを読み込む*/
 body {
     background-image: url("AdobeStock_145518338.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center center;
+    /*background-color: #000;*/
   }
   
   #load {
