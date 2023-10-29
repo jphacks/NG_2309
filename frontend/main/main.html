@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main</title> <!-- タイトルを追加 -->
+
+    <!-- CSSファイルを<head>セクション内で読み込み -->
+    <link rel="stylesheet" href="main.css">
+    <!-- 外部JavaScriptファイルを読み込む -->
+    <script src="main.js"></script>
+</head>
+<body>
+    <!-- コンテンツ -->
+    <div id="main">
+        <!-- ユーザー名の表示-->
+        <div id="user_name">
+            <p>hogehogeさん</p>
+        </div>
+        <!--ホームへ戻るボタン-->
+        <div id="logout">
+            <a href="" class="btn_25"><span>LOGOUT</span></a>
+        </div>
+        <!-- コメントが表示される -->
+        <div id="comment">
+            <p>コメント</p>
+        </div>
+        <!-- 異常度を表示する-->
+        <div
+            style="
+                position: absolute;
+                top: 35%;
+                left: 25%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color:aliceblue;
+                "
+        >
+            <div id="middle-circle"></div>
+            <div id="progress-spinner"></div>
+        </div>
+            <script>
+                var score = 60;
+                var progress = score;
+                function setProgress() {
+                    document.getElementById("progress-spinner").style.background =
+                    "conic-gradient(rgb(3, 133, 255) " +
+                    progress +
+                    "%,rgb(242, 242, 242) " +
+                    progress +
+                    "%)";
+                    document.getElementById("middle-circle").innerHTML =
+                    progress.toString() + "%";
+                }
+                window.onload = function () {
+                    setProgress();
+                };
+            </script>
+        <!--グラフを表示する-->
+        <div id="graph">
+            <img src="graph.png" alt="graph">
+        </div>
+    </body>
+</html>
