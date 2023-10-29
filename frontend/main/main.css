@@ -40,6 +40,7 @@ body {
     color: aliceblue;
     background: #1c1c1c;
 }
+
 a.btn_25 {
 	display: flex;
     top: 10px;
@@ -88,11 +89,11 @@ a.btn_25::before {
 #comment {
     position: absolute;
     top: 120px;
-    left: 600px;
+    left: 500px;
     font-size: 20px;
     color: aliceblue;
     background: #6a6e78;
-    width: 600px;
+    width: 400px;
     height: 300px;
     padding: 10px;
     border-radius: 10px;
@@ -120,7 +121,7 @@ a.btn_25::before {
 #graph{
   position: absolute;
   top: 500px;
-  left: 200px;
+  left: 100px;
   background-color: aliceblue;
   background-size: cover;
   width: auto;
