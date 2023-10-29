@@ -3,14 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <title>search</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='search.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='search/search.css') }}"/>
   </head>
   <body>
     <div id="search">
-      <form id="search-form" method="get">
-        <input type="search" name="search" placeholder="search" />
-        <input type="submit" name="submit" value="検索" />
-      </form>
       <div id="search-result">
         <h2>User Information</h2>
         <p>User Name: {{ user_name }}</p>
