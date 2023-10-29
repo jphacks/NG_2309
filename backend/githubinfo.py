@@ -77,7 +77,7 @@ def commit_month_datetime(token, author):
     result = []
     # 一年前の日付の取得
     today =datetime.datetime.now()
-    today = today.replace(year=today.month-1)
+    today = today.replace(month=today.month-1)
     today = 'author-date:>'+str(today.year) + '-' + str(today.month) + '-' + str(today.day)
     # アクセストークンを取得
     g = Github(token)
